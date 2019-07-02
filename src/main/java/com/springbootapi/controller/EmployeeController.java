@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import com.springbootapi.model.Employee;
 import com.springbootapi.model.EmployeeBody;
 
 @RestController
+@CrossOrigin(origins = "*" ,allowedHeaders = "*")
 @RequestMapping("/api")
 public class EmployeeController {
 	@Autowired
@@ -58,14 +60,19 @@ public class EmployeeController {
 	}
 	
 	/* Get Employee by email and Password*/
-	@GetMapping("/test")
-	public ResponseEntity<Employee> getEmployeeByEmailPass(@RequestBody EmployeeBody empbody){
+	@PostMapping("/employees/login")
+	public ResponseEntity<Employee> getEmployeeByEmailPass(@Valid @RequestBody EmployeeBody empbody){
 		//String password="";
+		System.out.println("-------------------------");
+		System.out.println(empbody.getEmail());
+		System.out.println(empbody.getPassword());
 		Employee emp=employeeDAO.findByEmailPass(empbody.getEmail(),empbody.getPassword());
+		
 		if(emp==null) {
+			System.out.println("--------------------null-----");
 			return ResponseEntity.notFound().build();
 		}
-		
+		System.out.println("--------------return Resp----------");
 		return ResponseEntity.ok().body(emp);
 	}
 	

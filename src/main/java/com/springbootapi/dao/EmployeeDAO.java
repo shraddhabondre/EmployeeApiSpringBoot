@@ -51,7 +51,7 @@ public class EmployeeDAO {
 	public Employee findByEmailPass(String email,String password) {
 		Employee employee=new Employee();
 		employee.setEmail(email);
-		employee.setEmail(password);
+		employee.setPassword(password);
 		Example<Employee> employeeExample=Example.of(employee);
 		//calling QueryByExampleExecutor#findAll(Example)
 		Iterable<Employee> employees = employeeRepository.findAll(employeeExample);
