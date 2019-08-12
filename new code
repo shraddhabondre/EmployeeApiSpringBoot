@@ -1,0 +1,540 @@
+package com.cognizant.stockMarket.entity;
+ 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name = "user_registration")
+public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private int id;
+
+	@NotNull(message = "Name cannot be empty!")
+	@Column(name = "user_name")
+	@Size(max = 70, message = "Name cannot exceed 70 characters!")
+	private String name;
+
+	@NotNull(message = "Password cannot be empty!")
+	@Size(min = 6, max = 100, message = "Password must be 6 to 30 characters!")
+	@Column(name = "user_password")
+	private String password;
+	
+	@NotNull(message = "Email cannot be empty!")
+	@Size(max = 255, message = "Email cannot exceed 255 characters!")
+	@Pattern(regexp = ".+@.+\\..+", message = "Invalid email address!")
+	@Column(name = "user_email")
+	private String email;
+
+	
+
+	
+
+	@Column(name = "user_isactivated")
+	private boolean isactivated;
+
+//	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//	@JoinTable(name = "user_article", joinColumns = { @JoinColumn(name = "ua_us_id") }, inverseJoinColumns = {
+//			@JoinColumn(name = "ua_art_id") })
+//	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+//	private List<Article> articles;
+//
+//	public List<Article> getArticles() {
+//		return articles;
+//	}
+//
+//	public void setArticles(List<Article> articles) {
+//		this.articles = articles;
+//	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public boolean getIsactivated() {
+		return isactivated;
+	}
+
+	public void setIsactivated(boolean isactivated) {
+		this.isactivated = isactivated;
+	}
+
+	public User() {
+		super();
+	}
+
+	public User(
+			@NotNull(message = "Name cannot be empty!") @Size(max = 70, message = "Name cannot exceed 70 characters!") String name,
+			@NotNull(message = "Email cannot be empty!") @Size(max = 255, message = "Email cannot exceed 255 characters!") @Pattern(regexp = ".+@.+\\..+", message = "Invalid email address!") String email,
+			@NotNull(message = "Password cannot be empty!") @Size(min = 6, max = 100, message = "Password must be 6 to 30 characters!") String password,
+			String role, String language, boolean isactivated) {
+		super();
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		
+		
+		this.isactivated = isactivated;
+	}
+
+	public User(
+			@NotNull(message = "Email cannot be empty!") @Size(max = 255, message = "Email cannot exceed 255 characters!") @Pattern(regexp = ".+@.+\\..+", message = "Invalid email address!") String email,
+			@NotNull(message = "Password cannot be empty!") @Size(min = 6, max = 100, message = "Password must be 6 to 30 characters!") String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", name=" + name + ", password=" + password + ", email=" + email + ", isactivated=" + isactivated +  "]";
+	}
+
+}
+
+
+
+
+
+
+package com.cognizant.stockMarket.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="company")
+public class Company {
+	
+	@Column(name="companyname",length=30)
+	private String companyname;
+	
+	@Column(name="turnover",length=30)
+	private String turnover;
+	
+	@Column(name="CEO",length=30)
+	private String CEO;
+	
+	@Column(name="boardofdirec",length=30)
+	private String boardofdirec;
+	
+	@Column(name="listedinstock",length=30)
+	private String listedinstock;
+	
+	@Column(name="sector",length=30)
+	private String sector;
+	
+	@Column(name="about",length=30)
+	private String about;
+	
+	@Column(name="stockcode" ,length=38)
+	private String stockcode;
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public String getTurnover() {
+		return turnover;
+	}
+
+	public void setTurnover(String turnover) {
+		this.turnover = turnover;
+	}
+
+	public String getCEO() {
+		return CEO;
+	}
+
+	public void setCEO(String cEO) {
+		CEO = cEO;
+	}
+
+	public String getBoardofdirec() {
+		return boardofdirec;
+	}
+
+	public void setBoardofdirec(String boardofdirec) {
+		this.boardofdirec = boardofdirec;
+	}
+
+	public String getListedinstock() {
+		return listedinstock;
+	}
+
+	public void setListedinstock(String listedinstock) {
+		this.listedinstock = listedinstock;
+	}
+
+	public String getSector() {
+		return sector;
+	}
+
+	public void setSector(String sector) {
+		this.sector = sector;
+	}
+
+	public String getAbout() {
+		return about;
+	}
+
+	public void setAbout(String about) {
+		this.about = about;
+	}
+
+	public String getStockcode() {
+		return stockcode;
+	}
+
+	public void setStockcode(String stockcode) {
+		this.stockcode = stockcode;
+	}
+
+}
+
+
+
+
+
+
+package com.cognizant.stockMarket.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="IPO")
+public class IPOs {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ipo_id")
+	private int id;
+
+	@Column(name="companyname",length=30)
+	private String companyname;
+	
+	@Column(name="Stockexchange",length=30)
+	private String stockexchange;
+	
+	@Column(name="price_pershare",length=30)
+	private Double price;
+	
+	@Column(name="totalshare",length=30)
+	private String totalshare;
+	
+	@Column(name="opentime",length=35)
+	private String opentime;
+	
+	@Column(name="remarks",length=30)
+	private String remarks;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public String getStockexchange() {
+		return stockexchange;
+	}
+
+	public void setStockexchange(String stockexchange) {
+		this.stockexchange = stockexchange;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public String getTotalshare() {
+		return totalshare;
+	}
+
+	public void setTotalshare(String totalshare) {
+		this.totalshare = totalshare;
+	}
+
+	public String getOpentime() {
+		return opentime;
+	}
+
+	public void setOpentime(String opentime) {
+		this.opentime = opentime;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+	
+}
+
+
+
+
+
+package com.cognizant.stockMarket.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="sector")
+public class sector {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "sector_id")
+	private int id;
+	
+	@Column(name="name",length=30)
+	private String name;
+	
+	@Column(name="brief",length=30)
+	private String brief;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getBrief() {
+		return brief;
+	}
+
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+}
+
+
+
+package com.cognizant.stockMarket.entity;
+ 
+import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@Entity
+@Table(name="stock_exchange")
+public class StockExchange
+{
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getBrief() {
+		return brief;
+	}
+	public void setBrief(String brief) {
+		this.brief = brief;
+	}
+	public String getContactAddress() {
+		return contactAddress;
+	}
+	public void setContactAddress(String contactAddress) {
+		this.contactAddress = contactAddress;
+	}
+	public String getRemarks() {
+		return Remarks;
+	}
+	public void setRemarks(String remarks) {
+		Remarks = remarks;
+	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "user_id")
+	private int id;
+	
+	@NotNull(message = "stock_exchange cannot be null")
+	@Column(name = "Stock_exchange")
+	@Size(max = 70, message = "Name cannot exceed 70 characters!")
+	private String name;
+	
+	@NotNull(message = "discription cannot be null")
+	@Column(name = "about")
+	private String brief;
+	
+	
+	@Column(name = "contact_address")
+	private String contactAddress;
+	@Column(name = "remarks")
+	private String Remarks;
+	
+}
+
+
+
+
+package com.cognizant.stockMarket.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="StockPrice")
+
+public class StockPrice {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "companyCode")
+	private String companyCode;
+	
+	@Column(name = "stockExchange")
+	private String stockExchange;
+	
+	@Column(name = "currentPrice")
+	private String currentPrice;
+	
+	@Column(name = "date")
+	private String date;
+	
+	@Column(name = "time")
+	private String time;
+	
+	
+	
+	public String getCompanyCode() {
+		return companyCode;
+	}
+	public void setCompanyCode(String companyCode) {
+		this.companyCode = companyCode;
+	}
+	public String getStockExchange() {
+		return stockExchange;
+	}
+	public void setStockExchange(String stockExchange) {
+		this.stockExchange = stockExchange;
+	}
+	public String getCurrentPrice() {
+		return currentPrice;
+	}
+	public void setCurrentPrice(String currentPrice) {
+		this.currentPrice = currentPrice;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+}
